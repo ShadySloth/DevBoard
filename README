@@ -1,0 +1,5 @@
+﻿A lightweight project-management platform for software development teams.
+
+The core idea:
+
+Users create projects → projects contain tasks → tasks move through a Kanban board → activity and notifications are generated from what happens.
