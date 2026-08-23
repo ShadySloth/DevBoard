@@ -1,0 +1,39 @@
+﻿# VCS
+.git
+.gitignore
+
+# Docker files that are not needed in build context uploads (optional to keep)
+**/.dockerignore
+
+# IDE/editor
+**/.vs/
+**/.vscode/
+**/.idea/
+**/*.user
+**/*.suo
+
+# .NET build artifacts
+**/bin/
+**/obj/
+**/TestResults/
+**/*.nupkg
+
+# Node/frontend artifacts
+**/node_modules/
+**/dist/
+**/.next/
+**/.nuxt/
+**/coverage/
+
+# Logs/temp
+**/*.log
+**/tmp/
+**/temp/
+
+# OS junk
+**/.DS_Store
+**/Thumbs.db
+
+# Docs and local env files (optional)
+**/.env
+**/.env.*
