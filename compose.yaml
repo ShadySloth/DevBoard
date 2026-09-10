@@ -7,21 +7,33 @@
     environment:
       ASPNETCORE_URLS: http://+:8081
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__Database: Host=project_db;Database=project;Username=devboard;Password=devboard
+      ConnectionStrings__WriteDatabase: Host=project_db;Database=project;Username=devboard;Password=devboard
+      ConnectionStrings__ReadDatabase: Host=project_read_db;Database=project;Username=devboard;Password=devboard
     ports:
       - "8081:8081"
     depends_on:
-      project_db:
+      project_write_db:
+        condition: service_started
+      project_read_db:
         condition: service_started
 
-  project_db:
+  project_write_db:
     image: postgres:18
     environment:
       POSTGRES_DB: project
       POSTGRES_USER: devboard
       POSTGRES_PASSWORD: devboard
     volumes:
-      - project_db_data:/var/lib/postgresql
+      - project_write_db_data:/var/lib/postgresql
+
+  project_read_db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: project
+      POSTGRES_USER: devboard
+      POSTGRES_PASSWORD: devboard
+    volumes:
+      - project_read_db_data:/var/lib/postgresql
 
   user_service:
     image: devboard-user
@@ -31,21 +43,33 @@
     environment:
       ASPNETCORE_URLS: http://+:8083
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__Database: Host=user_db;Database=user;Username=devboard;Password=devboard
+      ConnectionStrings__WriteDatabase: Host=user_write_db;Database=user;Username=devboard;Password=devboard
+      ConnectionStrings__ReadDatabase: Host=user_read_db;Database=user;Username=devboard;Password=devboard
     ports:
       - "8083:8083"
     depends_on:
-      user_db:
+      user_write_db:
         condition: service_started
-    
-  user_db:
+      user_read_db:
+        condition: service_started
+
+  user_write_db:
     image: postgres:18
     environment:
       POSTGRES_DB: user
       POSTGRES_USER: devboard
       POSTGRES_PASSWORD: devboard
     volumes:
-      - user_db_data:/var/lib/postgresql
+      - user_write_db_data:/var/lib/postgresql
+
+  user_read_db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: user
+      POSTGRES_USER: devboard
+      POSTGRES_PASSWORD: devboard
+    volumes:
+      - user_read_db_data:/var/lib/postgresql
 
   task_service:
     image: devboard-task
@@ -55,21 +79,33 @@
     environment:
       ASPNETCORE_URLS: http://+:8082
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__Database: Host=task_db;Database=task;Username=devboard;Password=devboard
+      ConnectionStrings__WriteDatabase: Host=task_write_db;Database=task;Username=devboard;Password=devboard
+      ConnectionStrings__ReadDatabase: Host=task_read_db;Database=task;Username=devboard;Password=devboard
     ports:
       - "8082:8082"
     depends_on:
-      task_db:
+      task_write_db:
         condition: service_started
-  
-  task_db:
+      task_read_db:
+        condition: service_started
+
+  task_write_db:
     image: postgres:18
     environment:
       POSTGRES_DB: task
       POSTGRES_USER: devboard
       POSTGRES_PASSWORD: devboard
     volumes:
-      - task_db_data:/var/lib/postgresql
+      - task_write_db_data:/var/lib/postgresql
+  
+  task_read_db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: task
+      POSTGRES_USER: devboard
+      POSTGRES_PASSWORD: devboard
+    volumes:
+      - task_read_db_data:/var/lib/postgresql
   
   rabbitmq:
     image: rabbitmq:latest
@@ -78,6 +114,9 @@
       - "15672:15672"
   
 volumes:
-  project_db_data:
-  user_db_data:
-  task_db_data:
+  project_write_db_data:
+  project_read_db_data:
+  user_write_db_data:
+  user_read_db_data:
+  task_write_db_data:
+  task_read_db_data:
