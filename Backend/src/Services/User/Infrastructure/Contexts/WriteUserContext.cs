@@ -8,7 +8,7 @@ public class WriteUserContext : DbContext
     public WriteUserContext(DbContextOptions<WriteUserContext> options) : base(options) { }
     
     public DbSet<Domain.Entities.User> Users { get; set; }
-    public DbSet<UserPassword> UserPasswords { get; set; }
+    public DbSet<UserCredential> UserPasswords { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
