@@ -1,6 +1,9 @@
 using Microsoft.OpenApi;
+using User.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 
