@@ -5,37 +5,3 @@ DevBoard is a developer-focused project management platform inspired by tools su
 The project is primarily being developed as a personal learning and portfolio project, with a focus on **Domain-Driven Design (DDD)**, **Clean Architecture**, **microservices**, **event-driven architecture**, and modern **C#/.NET** development.
 
 The frontend is built with **React and TypeScript**.
-
-## Architecture
-
-DevBoard uses several architectural approaches that complement each other.
-
-```text
-                       ┌────────────────────┐
-                       │ React + TypeScript │
-                       └─────────┬──────────┘
-                                 │
-                                 ▼
-                         ┌────────────────┐
-                         │  API Gateway   │
-                         └───────┬────────┘
-                                 │
-               ┌─────────────────┼─────────────────┐
-               │                 │                 │
-               ▼                 ▼                 ▼
-        ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
-        │  Identity   │   │   Project   │   │    Work     │
-        │   Service   │   │   Service   │   │   Service   │
-        └─────────────┘   └─────────────┘   └──────┬──────┘
-                                                   │
-                                                   ▼
-                                            ┌────────────┐
-                                            │  RabbitMQ  │
-                                            └─────┬──────┘
-                                                  │
-                                ┌─────────────────┼─────────────────┐
-                                ▼                 ▼                 ▼
-                         ┌────────────┐    ┌────────────┐    ┌────────────┐
-                         │  Activity  │    │Notification│    │  GitHub    │
-                         │  Service   │    │  Service   │    │ Integration│
-                         └────────────┘    └────────────┘    └────────────┘
